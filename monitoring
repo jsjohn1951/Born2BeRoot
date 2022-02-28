@@ -1,0 +1,5 @@
+#Network IP and Mac Address
+echo "#Network: IP " | tr -d '\n' && hostname -I | tr -d '\n' && echo " (" | tr -d '\n' && ip a | grep link/ether | awk '{printf($2)}' && echo ")"
+
+#number of commands executed with sudo
+echo "#Sudo: " | tr -d '\n' && journalctl _COMM=sudo -q | grep COMMAND | wc -l
