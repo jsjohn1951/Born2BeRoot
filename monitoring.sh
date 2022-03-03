@@ -19,7 +19,7 @@ echo "#Disk Usage: " | tr -d '\n' && df -h --total | grep total | awk '{printf $
 echo "/" | tr -d '\n' && df -h --total | grep total | awk '{printf($2 "b (" $5 "%)\n")}'
 
 #CPU Load
-#Have to install sysstat in order to use mpstat for cpu load
+#Have to "$sudo apt-get install sysstat" in order to use mpstat command for cpu load
 #Take 100 - %idle processes in order to calculate the total cpu load
 echo "#CPU Load: " | tr -d '\n' && mpstat | grep all | awk '{printf(100-$13) "%%\n"}'
 
@@ -27,13 +27,14 @@ echo "#CPU Load: " | tr -d '\n' && mpstat | grep all | awk '{printf(100-$13) "%%
 echo "#Last Boot: " | tr -d '\n' && uptime -s
 
 #LVM active
-#Uses a conditional after lsblk and grepping "lvm" and counting all the instances with wc -l
+#lsblk, grepping and counting all the instances of "lvm" with wc -l
 #If wc -l returns == 0 then print no else print yes
 lvmt=$(lsblk | grep "lvm" | wc -l)
 echo "#LVM use: " | tr -d '\n'
 if [ $lvmt -eq 0 ]; then echo no; else echo yes; fi
 
 #Number of active connections
+#Have to "$sudo apt-get install net-tools" to use the netstat command
 echo "#Connections TCP: " | tr -d '\n'
 netstat | grep ESTABLISHED | wc -l | tr -d '\n'
 echo " ESTABLISHED"
