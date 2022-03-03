@@ -47,4 +47,5 @@ echo "#Network: IP " | tr -d '\n' && hostname -I | tr -d '\n' && echo " (" | tr 
 | awk '{printf($2)}' && echo ")"
 
 #number of commands executed with sudo
-echo "#Sudo: " | tr -d '\n' && journalctl _COMM=sudo -q | grep COMMAND | wc -l
+echo "#Sudo: " | tr -d '\n' && journalctl _COMM=sudo -q | grep COMMAND | wc -l | tr -d '\n'
+echo " cmd"
